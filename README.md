@@ -1,6 +1,6 @@
 # 投票系統
 
-Live Demo: <https://vote.cchuean.one>
+Live Demo: <https://vote.cchuan.one>
 
 ## Spring 建置方法
 
