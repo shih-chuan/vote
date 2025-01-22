@@ -120,6 +120,11 @@ const handleVote = () => {
         font-size: 22px;
         font-weight: bold;
       }
+      @media (max-width: 768px) {
+        input {
+          max-width: 150px;
+        }
+      }
     }
     .progress {
       position: relative;
@@ -136,6 +141,9 @@ const handleVote = () => {
     display: flex;
     flex-shrink: 0;
     gap: 7px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
   }
 }
 </style>

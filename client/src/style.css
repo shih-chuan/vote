@@ -31,6 +31,7 @@ button {
   border-radius: 0;
   appearance: none;
   cursor: pointer;
+  color: white;
 }
 
 .button {

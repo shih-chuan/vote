@@ -82,5 +82,10 @@ const add = () => {
     font-size: 22px;
     font-weight: bold;
   }
+  @media (max-width: 768px) {
+    .title {
+      max-width: 150px;
+    }
+  }
 }
 </style>
