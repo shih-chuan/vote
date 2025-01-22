@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
   public List<Integer> getUserVotes(Integer id) {
     return voteDao.findByUserId(id);
   }
+
+  @Override
+  public User createUser(User user) {
+    return userDao.create(user);
+  }
 }

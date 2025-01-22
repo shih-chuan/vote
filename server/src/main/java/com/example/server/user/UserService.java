@@ -6,4 +6,6 @@ public interface UserService {
   List<User> getAllUsers();
 
   List<Integer> getUserVotes(Integer id);
+
+  User createUser(User user);
 }

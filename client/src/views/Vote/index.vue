@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, ref, onMounted, computed } from 'vue';
+import Container from "@/components/Container/index.vue"
 import Option from "@/components/Option/index.vue"
 import Empty from "@/components/Empty/index.vue"
 import { api } from '../../apis/https';
@@ -35,7 +36,7 @@ const totalVotes = computed(() => {
 </script>
 
 <template>
-  <div class="container">
+  <Container>
     <div class="options">
       <Empty v-if="state.options.length <= 0"/>
       <Option
@@ -50,23 +51,17 @@ const totalVotes = computed(() => {
         @refresh="fetchData"
       />
     </div>
-  </div>
+  </Container>
 </template>
 
 <style scoped>
-.container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 60px 0;
-}
 .options {
   position: relative;
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding-top: 30px;
 }
 </style>

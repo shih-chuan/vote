@@ -1,7 +1,9 @@
 <script setup>
+import Container from "@/components/Container/index.vue"
 import { reactive, ref, onMounted, computed } from 'vue';
 import Option from "@/components/Option/index.vue"
 import { api } from '../../apis/https';
+import { toast } from "vue3-toastify";
 defineProps({
   msg: String,
 })
@@ -30,12 +32,14 @@ const totalVotes = computed(() => {
 const add = () => {
   api.post("/options", {"label": labelInput.value}).then(res => {
     fetchData()
+    toast.success(`新增成功 ${labelInput.value}`)
+    labelInput.value = ""
   })
 }
 </script>
 
 <template>
-  <div class="container">
+  <Container>
     <div class="options">
         <Option
           v-for="(item, i) in options"
@@ -54,23 +58,18 @@ const add = () => {
         </div>
       </div>
     </div>
-  </div>
+  </Container>
 </template>
 
 <style scoped>
-.container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 60px 0;
-}
 .options {
   position: relative;
-  width: 600px;
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
+  padding-top: 30px;
 }
 .add-form {
   width: 100%;

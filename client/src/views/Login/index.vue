@@ -1,6 +1,5 @@
 <script setup>
 import { reactive, ref, onMounted, computed } from 'vue';
-import Option from "@/components/Option/index.vue"
 import { api } from '../../apis/https';
 defineProps({
   msg: String,
