@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, ref, onMounted, computed } from 'vue';
 import Option from "@/components/Option/index.vue"
+import Empty from "@/components/Empty/index.vue"
 import { api } from '../../apis/https';
 import { store } from '../../store';
 defineProps({
@@ -14,16 +15,13 @@ onMounted(() => {
 })
 
 async function fetchData() {
-  console.log("refresh")
   const optionRes = await api.get("/options")
   const voteRes = await api.get(`/users/${store.user_id}/votes`)
   let options = optionRes.data
   let selections = voteRes.data
   state.options = options.map(option => {
-    console.log(option.id, selections.includes(option.id))
     return {...option, selected: selections.includes(option.id)}
   })
-  console.log(state.options)
 }
 
 const totalVotes = computed(() => {
@@ -39,6 +37,7 @@ const totalVotes = computed(() => {
 <template>
   <div class="container">
     <div class="options">
+      <Empty v-if="state.options.length <= 0"/>
       <Option
         v-for="(item, i) in state.options"
         :key="item.id"
@@ -67,6 +66,7 @@ const totalVotes = computed(() => {
   max-width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
 </style>

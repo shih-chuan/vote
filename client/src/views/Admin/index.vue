@@ -17,7 +17,6 @@ async function fetchData() {
   const res = await api.get("/options")
   options.length = 0
   options.push(...res.data)
-  console.log(options)
 }
 
 const totalVotes = computed(() => {
@@ -30,7 +29,6 @@ const totalVotes = computed(() => {
 
 const add = () => {
   api.post("/options", {"label": labelInput.value}).then(res => {
-    console.log(res)
     fetchData()
   })
 }

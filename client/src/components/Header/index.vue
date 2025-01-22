@@ -13,15 +13,14 @@ async function fetchData() {
   const res = await api.get("/users")
   users.length = 0
   users.push(...res.data)
-  console.log(users)
 }
 </script>
 
 <template>
   <div class="header">
     <nav>
-      <RouterLink class="nav-item" to="/">前往投票</RouterLink>
-      <RouterLink class="nav-item" to="/admin">管理後臺</RouterLink>
+      <RouterLink class="nav-item" :to="`/`">前往投票</RouterLink>
+      <RouterLink class="nav-item" :to="`/admin`">管理後臺</RouterLink>
     </nav>
     <div>
       <label>切換使用者： </label>

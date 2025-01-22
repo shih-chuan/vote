@@ -21,7 +21,6 @@ async function fetchData() {
 
 const add = () => {
   api.post("/options", {"label": labelInput.value}).then(res => {
-    console.log(res)
     fetchData()
   })
 }

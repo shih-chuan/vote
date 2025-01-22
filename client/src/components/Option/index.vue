@@ -12,7 +12,6 @@ const props = defineProps({
   selected: {type: Boolean, default: false},
   isEditing: {type: Boolean, default: false},
 })
-console.log("in option", props.selected)
 const emit = defineEmits(['refresh'])
 const labelInput = ref(props.label)
 
