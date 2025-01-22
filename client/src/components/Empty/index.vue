@@ -12,7 +12,7 @@
   width: 300px;
   svg {
     path {
-      fill: blue;
+      fill: #4CA29C;
       opacity: 0.3;
     }
   }

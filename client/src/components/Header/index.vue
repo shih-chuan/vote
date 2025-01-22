@@ -86,7 +86,7 @@ const add = () => {
     .add-form {
       display: flex;
       button {
-        background-color: blue;
+        background-color: #4CA29C;
         padding: 5px;
         font-size: 14px;
       }

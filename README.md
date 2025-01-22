@@ -1,6 +1,6 @@
 # 投票系統
 
-Live Demo: https://vote.cchuean.one
+Live Demo: <https://vote.cchuean.one>
 
 ## Spring 建置方法
 
@@ -21,6 +21,18 @@ spring.datasource.password=$DB_PASSWORD
 server.port=8080
 ```
 
+### 3. 建立 jar 檔
+
+```bash
+mvn clean package
+```
+
+### 4. 執行 Spring
+
+```bash
+java -jar target/server-0.0.1-SNAPSHOT.jar
+```
+
 ## Vue 建置方法
 
 ### 1. 建立 `.env`
@@ -30,3 +42,14 @@ server.port=8080
 ```env
 VITE_API_ADDRESS="http://localhost:8080/api"
 ```
+
+### 2. build
+
+```bash
+npm install
+npm run build
+```
+
+### 3. serve
+
+將`client/dist`底下生成之靜態檔案交由網頁伺服器(Apache, Nginx)發送

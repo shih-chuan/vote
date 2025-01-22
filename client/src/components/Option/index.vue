@@ -90,7 +90,7 @@ const handleVote = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      border: solid 2px blue;
+      border: solid 2px #4CA29C;
       border-radius: 5000px;
       width: 35px;
       height: 35px;
@@ -99,7 +99,7 @@ const handleVote = () => {
         width: 20px;
         height: 20px;
         path {
-          fill: blue;
+          fill: #4CA29C;
         }
       }
     }
@@ -125,10 +125,10 @@ const handleVote = () => {
       position: relative;
       width: 100%;
       height: 5px;
-      background-color: rgba($color: blue, $alpha: 0.2);
+      background-color: rgba($color: #4CA29C, $alpha: 0.2);
       .value {
         height: 5px;
-        background-color: rgba($color: blue, $alpha: 1.0);
+        background-color: rgba($color: #4CA29C, $alpha: 1.0);
       }
     }
   }
