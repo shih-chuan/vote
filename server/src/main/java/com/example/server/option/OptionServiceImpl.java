@@ -17,7 +17,7 @@ public class OptionServiceImpl implements OptionService {
   }
 
   @Override
-  public List<Option> getAllOptions() {
+  public List<OptionDto> getAllOptions() {
     return optionDao.findAll();
   }
 

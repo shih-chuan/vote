@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,8 +24,8 @@ public class VoteController {
   }
 
   @DeleteMapping
-  public ResponseEntity<Void> deleteVote(@RequestBody VoteDto vote) {
-    voteService.deleteVote(vote.getUserId(), vote.getOptionId());
+  public ResponseEntity<Void> deleteVote(@RequestParam Integer userId, @RequestParam Integer optionId) {
+    voteService.deleteVote(userId, optionId);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public interface OptionService {
   Option createOption(Option option);
 
-  List<Option> getAllOptions();
+  List<OptionDto> getAllOptions();
 
   void deleteOption(Integer id);
 

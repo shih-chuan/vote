@@ -3,7 +3,7 @@ package com.example.server.option;
 import java.util.List;
 
 public interface OptionDao {
-  List<Option> findAll();
+  List<OptionDto> findAll();
 
   Option create(Option option);
 

@@ -17,11 +17,24 @@ public class OptionDaoImpl implements OptionDao {
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Override
-  public List<Option> findAll() {
-    String sql = "SELECT id, label FROM options";
+  public List<OptionDto> findAll() {
+    String sql = """
+          SELECT
+              o.id,
+              o.label,
+              COUNT(v.option_id) AS votes
+          FROM
+              options o
+          LEFT JOIN
+              votes v ON o.id = v.option_id
+          GROUP BY o.id;
+        """;
     Map<String, Object> map = new HashMap<>();
-    List<Option> results = namedParameterJdbcTemplate.query(sql, map, (rs, rowNum) -> {
-      Option option = new Option(rs.getInt("id"), rs.getString("label"));
+    List<OptionDto> results = namedParameterJdbcTemplate.query(sql, map, (rs, rowNum) -> {
+      OptionDto option = new OptionDto();
+      option.setId(rs.getInt("id"));
+      option.setLabel(rs.getString("label"));
+      option.setVotes(rs.getInt("votes"));
       return option;
     });
     return results;

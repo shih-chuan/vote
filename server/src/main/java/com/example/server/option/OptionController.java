@@ -29,8 +29,8 @@ public class OptionController {
   }
 
   @GetMapping
-  public ResponseEntity<List<Option>> getAllOptions() {
-    List<Option> options = optionService.getAllOptions();
+  public ResponseEntity<List<OptionDto>> getAllOptions() {
+    List<OptionDto> options = optionService.getAllOptions();
     return ResponseEntity.ok(options);
   }
 

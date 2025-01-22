@@ -1,5 +1,7 @@
 package com.example.server.vote;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -64,4 +66,22 @@ public class VoteDaoImpl implements VoteDao {
     });
   }
 
+  @Override
+  public List<Integer> findByUserId(Integer userId) {
+    String sql = """
+          SELECT
+              o.id
+          FROM
+              votes v
+          JOIN
+              options o ON v.option_id = o.id
+          WHERE
+              v.user_id = :userId
+        """;
+    MapSqlParameterSource parameters = new MapSqlParameterSource();
+    parameters.addValue("userId", userId);
+    return namedParameterJdbcTemplate.query(sql, parameters, (rs, rowNum) -> {
+      return rs.getInt("id");
+    });
+  }
 }

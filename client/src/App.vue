@@ -1,9 +1,12 @@
 <script setup>
-import Vote from './views/Vote/index.vue'
+import Header from "@/components/Header/index.vue"
 </script>
 
 <template>
-  <Vote msg="Vite + Vue" />
+  <Header />
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
