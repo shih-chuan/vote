@@ -8,6 +8,14 @@ public class Option {
   @NotBlank
   private String label;
 
+  public Option() {
+  }
+
+  public Option(Integer id, String label) {
+    this.id = id;
+    this.label = label;
+  }
+
   public Integer getId() {
     return this.id;
   }

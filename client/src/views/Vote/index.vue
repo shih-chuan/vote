@@ -1,44 +1,68 @@
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue';
 import Option from "@/components/Option/index.vue"
+import { api } from '../../apis/https';
 defineProps({
   msg: String,
 })
 
-const count = ref(0)
+const labelInput = ref("")
+const options = reactive([])
+
+onMounted(() => {
+  fetchData()
+})
+
+async function fetchData() {
+  const res = await api.get("/options")
+  options.length = 0
+  options.push(...res.data)
+  console.log(options)
+}
+
+const add = () => {
+  api.post("/options", {"label": labelInput.value}).then(res => {
+    console.log(res)
+    fetchData()
+  })
+}
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+  <div class="options">
+    <div
+      v-for="(item, i) in options"
+      :key="item.id"
+    >
+      <Option :id="item.id" :label="item.label" @refresh="fetchData"/>
+    </div>
+    <div class="add-form">
+      <input class="title" type="text" placeholder="輸入選項" v-model="labelInput"/>
+      <div class="controls">
+        <button class="button" @click="add">新增</button>
+      </div>
+    </div>
   </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Learn more about IDE Support for Vue in the
-    <a
-      href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
-      target="_blank"
-      >Vue Docs Scaling up Guide</a
-    >.
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
-  <Option />
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
+.options {
+  width: 600px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.add-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  .title {
+    font-size: 22px;
+    font-weight: bold;
+  }
 }
 </style>

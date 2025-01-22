@@ -41,7 +41,7 @@ public class OptionController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> selectOne(@PathVariable Integer id) {
+  public ResponseEntity<Void> deleteOption(@PathVariable Integer id) {
     optionService.deleteOption(id);
     return ResponseEntity.status(HttpStatus.OK).build();
   }

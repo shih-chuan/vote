@@ -20,7 +20,10 @@ public class OptionDaoImpl implements OptionDao {
   public List<Option> findAll() {
     String sql = "SELECT id, label FROM options";
     Map<String, Object> map = new HashMap<>();
-    List<Option> results = namedParameterJdbcTemplate.query(sql, map, new OptionRowMapper());
+    List<Option> results = namedParameterJdbcTemplate.query(sql, map, (rs, rowNum) -> {
+      Option option = new Option(rs.getInt("id"), rs.getString("label"));
+      return option;
+    });
     return results;
   }
 

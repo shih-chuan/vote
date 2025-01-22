@@ -1,16 +1,36 @@
 <script setup>
+import { toast } from 'vue3-toastify';
 import { ref } from 'vue'
+import { api } from '../../apis/https';
 
-defineProps({
-  msg: String,
+const props = defineProps({
+  id: Number,
+  label: {type: String},
+  votes: {type: Number, default: 1},
+  totalVotes: {type: Number, default: 12},
+  isEditing: {type: Boolean, default: true},
 })
 
+const emit = defineEmits(['refresh'])
 const checked = ref(false)
+const labelInput = ref(props.label)
+
+const save = () => {
+  api.put(`options/${props.id}`, {"label": labelInput.value}).then((res) => {
+    toast.success(`已儲存 ${labelInput.value}`)
+  })
+}
+const handleDelete = () => {
+  api.delete(`options/${props.id}`).then((res) => {
+    emit("refresh")
+    toast.success(`已刪除 ${props.label}`)
+  })
+}
 </script>
 
 <template>
-  <button class="option"  @click="checked=!checked">
-    <div class="checkbox-wrapper">
+  <div class="option">
+    <button class="checkbox-wrapper"  @click="checked=!checked" v-if="!isEditing">
       <div class="checkbox">
         <div class="check" v-if="checked">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  width="100%" height="100%" version="1.1" id="Capa_1" viewBox="0 0 17.837 17.837" xml:space="preserve">
@@ -20,18 +40,23 @@ const checked = ref(false)
           </svg>
         </div>
       </div>
-    </div>
+    </button>
     <div class="info-wrapper">
       <div class="info-header">
-        <div class="title">電腦</div>
-        <div class="ratio">15%</div>
+        <div class="title" v-if="!isEditing">{{ label }}</div>
+        <input class="title" type="text" placeholder="輸入選項" v-model="labelInput" v-if="isEditing" />
+        <div class="ratio">{{(votes/totalVotes).toFixed(3) * 100}}%</div>
       </div>
       <div class="progress">
-        <div class="value"></div>
+        <div class="value" style=""></div>
       </div>
-      <div class="votes">102票</div>
+      <div class="votes">{{votes}}票</div>
     </div>
-  </button>
+    <div class="controls" v-if="isEditing">
+      <button class="button" @click="save">儲存</button>
+      <button class="button" @click="handleDelete">刪除</button>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -40,6 +65,10 @@ const checked = ref(false)
   align-items: center;
   gap: 20px;
   width: 100%;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 15px 20px;
+  min-width: none;
   .checkbox-wrapper {
     .checkbox {
       position: relative;
@@ -71,6 +100,11 @@ const checked = ref(false)
       display: flex;
       align-items: end;
       justify-content: space-between;
+      line-height: 1;
+      .title {
+        font-size: 22px;
+        font-weight: bold;
+      }
     }
     .progress {
       position: relative;
@@ -83,6 +117,11 @@ const checked = ref(false)
         background-color: rgba($color: blue, $alpha: 1.0);
       }
     }
+  }
+  .controls {
+    display: flex;
+    flex-shrink: 0;
+    gap: 7px;
   }
 }
 </style>
